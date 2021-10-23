@@ -11,3 +11,12 @@ Phân biệt 2 mode thông qua dấu '.' ở hàng đơn vị của màn hình l
 * Sau khi khởi động xong, mặc định vào mode 
 ##### Lưu ý
 ...
+##### Nguồn tham khảo
+* Datasheet 'MSP430G2553' cho sơ đồ chân
+    * https://www.ti.com/lit/ds/symlink/msp430g2553.pdf
+
+* Datasheet 'MSP430x2xx Family'  cho module I2C, các thanh ghi i2c
+    * https://www.ti.com/lit/ug/slau144j/slau144j.pdf
+
+* Datasheet 'BMP180' cho khung giao tiếp đọc-ghi cảm biến, các thanh ghi giá trị cảm biến
+    * https://cdn-shop.adafruit.com/datasheets/BST-BMP180-DS000-09.pdf
