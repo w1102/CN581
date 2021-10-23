@@ -7,8 +7,8 @@
 Phân biệt 2 mode thông qua dấu '.' ở hàng đơn vị của màn hình led, có dấu '.' là mode đo mực nước, ko có là đo áp suất bình thường.
 ##### Sơ lược hoạt động:
 * Khởi động -> màn hình hiện ra 'load'
-* Chờ 1-2p (thực tế khoảng vài giây, trong proteus bị chậm ko rõ lý do)
-* Sau khi khởi động xong, mặc định vào mode 
+* Chờ khởi động 1-2p (thực tế khoảng vài giây, trong proteus bị chậm ko rõ lý do)
+* Sau khi khởi động xong, mặc định vào mode 0
 ##### Lưu ý
 ...
 ##### Nguồn tham khảo
