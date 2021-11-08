@@ -64,33 +64,25 @@ void main(void) {
     P2SEL = 0x00;
     P2DIR = 0xFF;
 
-    TA0CTL = TASSEL_2 + ID_0 + MC_1; // SMCLK as clock source, divider 0, up-mode
-
-    // CCTL0 = CCIE;     // Enable interrupt for CCR0
-    // CCR0  = 5000;     // 5ms
-    // _BIS_SR(GIE);     // Enable global interrupts
-
-
     toDisplay(value);
 
     for (;;) {
 
-        
         if ((P1IN & K1) == 0) {
             delayms(200);
             value++;
-            
+
         }
 
         if ((P1IN & K2) == 0) {
             delayms(200);
             value--;
-            
+
         }
 
         if ((P1IN & K3) == 0) {
             delayms(100);
-           value = 0;
+            value = 0;
         }
 
         toDisplay(value);
@@ -98,12 +90,6 @@ void main(void) {
         scanled();
         delayms(5);
     }
-
-}
-
-//=============================== timer =============================================
-#pragma vector = TIMER0_A0_VECTOR
-__interrupt void Timer_A0(void) {
 
 }
 

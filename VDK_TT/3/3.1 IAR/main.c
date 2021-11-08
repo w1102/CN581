@@ -72,8 +72,12 @@ void main(void) {
     // _BIS_SR(GIE);     // Enable global interrupts
 
     // Khởi động ADC
-    ADC10CTL1 = ADC10DIV_3;
+    ADC10CTL1 = ADC10DIV_3; // chọn bộ chia clock là 3
     ADC10CTL0 = SREF_1 + ADC10SHT_3 + REFON + ADC10ON;
+    // SREF_1    : chọn tham chiếu là 1 ( VR+ = VREF+ and VR- = VSS )
+    // ADC10SHT_3: chọn chế độ lấy mẫu là 3 ( 16 × ADC10CLKs )
+    // REFON     : bật điện áp tham chiếu
+    // ADC10ON   : bật ADC
 
     toDisplay(value);
 
@@ -83,12 +87,14 @@ void main(void) {
         if ((P1IN & K1) == 0) {
             delayms(100);
             value = ReadADC10(10);
+            // đọc giá trị từ kênh 10
         }
 
         if ((P1IN & K2) == 0) {
             delayms(100);
             value = ReadADC10(10);
             value = ((value - 673) * 423) / 1024;
+            
         }
 
         if ((P1IN & K3) == 0) {
@@ -113,9 +119,18 @@ __interrupt void Timer_A0(void) {
 //============================= function ===============================
 unsigned int ReadADC10(int chanel) {
     ADC10AE0 |= (BIT0<<chanel);
+    // Bật ADC ở chanel tương ứng
+
     ADC10CTL1 |= (chanel*0x1000u);
+    // Bật ADC ở chanel tương ứng
+
     ADC10CTL0 |= ENC + ADC10SC;
+    // ENC    : Enable conversion
+    // ADC10SC: start conversion
+
     while(!(ADC10CTL0 & ADC10IFG));
+    // waiting to conversion end
+
     return ADC10MEM;
 }
 
