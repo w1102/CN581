@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "stdint.h": "c",
+        "stdbool.h": "c",
+        "msp430g2553.h": "c",
+        "bmp180.h": "c"
+    }
+}
