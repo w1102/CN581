@@ -161,12 +161,12 @@ void giamsonhiphan() {
 
 //----------------------------khai bao ham dua so nhi phan ve 0xff
 void ngat() {
-    LEDS = 0XFF;
+    LEDS = 0X00;
     delayms(500);
 
 }
 //----------------------------khai bao ham dua so nhi phan ve 0x00
 void ngat1() {
-    LEDS = 0x00;
+    LEDS = 0xFF;
     delayms(500);
 }

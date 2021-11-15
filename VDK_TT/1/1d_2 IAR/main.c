@@ -23,11 +23,20 @@ void ngat1();
 void dichtrai5lan(int time); // khai bao ham dich trai 5 lan
 void dichphai3lan(int time); // khai bao ham dich phai 3 lan
 
+
+int autoCount = 0;
+
 //---------------------------------------------
 
 void main(void) {
     // Stop watchdog timer to prevent time out reset
     WDTCTL = WDTPW + WDTHOLD;
+
+    //Set MCLK = SMCLK = 1MHz
+    DCOCTL = 0;
+    BCSCTL1 = CALBC1_1MHZ;
+    DCOCTL = CALDCO_1MHZ;
+
     P2DIR = 0xff; //khai bao ngo ra output cho port2
     P2OUT = 0xff; // cho tat ca ngo ra tren port 2 la output
     P2SEL = 0; // cho phep su dung tat ca cac bit tren port2 lam output
@@ -45,6 +54,7 @@ void main(void) {
     dichphai3lan(3);
     delayms(200);
 
+    int interval = 0;
     while (1) {
         if ((K1 & P1IN) == 0) {
             tangsonhiphan();
@@ -52,6 +62,16 @@ void main(void) {
         if ((K2 & P1IN) == 0) {
             giamsonhiphan();
         }
+
+        if (interval == 200) {
+            interval = 0;
+            if (autoCount) tangsonhiphan();
+        }
+       
+
+        delayms(5);
+        interval++;
+
 
     }
 
@@ -65,13 +85,14 @@ __interrupt void Port_1(void) { // dinh nghia ham ngat
     //if((P1IFG & K2)==K2){
     //}
     if ((P1IFG & K3) == K3) {
-        ngat();
+        autoCount = 1;
         delayms(200);
     }
 
     if ((P1IFG & K4) == K4) {
+        autoCount = 0;
         ngat1();
-        delayms(500);
+        delayms(200);
 
     }
     P1IFG &= ~(BIT0 + BIT1 + BIT2 + BIT3);
@@ -79,7 +100,7 @@ __interrupt void Port_1(void) { // dinh nghia ham ngat
 //--------------------------------dinh nghia ham delay
 void delayms(int ms) {
     for (int i = 0; i < ms; i++)
-        __delay_cycles(100);
+        __delay_cycles(1000);
 }
 //--------------------------------dinh nghia ham chop tat led
 void blink(int time) {
